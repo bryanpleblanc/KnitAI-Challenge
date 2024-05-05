@@ -6,10 +6,10 @@ import usePollMultipleTTSJobs from "@/hooks/usePollMultipleTTSJobs";
 
 const TextToSpeech = ({ models }: TextToSpeechProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { jobs, refetch, error } = usePollMultipleTTSJobs();
+  const { jobs, refetch, error, isFetching } = usePollMultipleTTSJobs();
   const [job, setJob] = useState<TextToSpeechApiResponse | null>(null);
+  const [resetForm, setResetForm] = useState(false);
 
-  // Only unsetting loading after refetch polling stops
   useEffect(() => {
     if (
       job &&
@@ -19,6 +19,7 @@ const TextToSpeech = ({ models }: TextToSpeechProps) => {
     ) {
       setIsLoading(false);
       setJob(null);
+      setResetForm(true);
     }
   }, [jobs]);
 
@@ -49,8 +50,14 @@ const TextToSpeech = ({ models }: TextToSpeechProps) => {
           setJob={setJob}
           setIsLoading={setIsLoading}
           isLoading={isLoading}
+          resetForm={resetForm}
+          setResetForm={setResetForm}
         />
-        <OutputCard jobs={jobs} error={error} />
+        <OutputCard
+          jobs={jobs}
+          error={error}
+          isFetching={isFetching && !isLoading}
+        />
       </div>
     </div>
   );

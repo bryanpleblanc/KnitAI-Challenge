@@ -24,13 +24,14 @@ const usePollMultipleTTSJobs = () => {
   const [shouldPoll, setShouldPoll] = useState(true);
   const [refetchCount, setRefetchCount] = useState(0);
 
-  const { data, error, refetch } = useQuery<TextToSpeechApiResponse>({
-    queryKey: ["ttsJobs"],
-    queryFn: getTTSJobs,
-    enabled: shouldPoll,
-    refetchInterval: shouldPoll ? 2000 : undefined,
-    refetchOnWindowFocus: false,
-  });
+  const { data, error, refetch, isFetching } =
+    useQuery<TextToSpeechApiResponse>({
+      queryKey: ["ttsJobs"],
+      queryFn: getTTSJobs,
+      enabled: shouldPoll,
+      refetchInterval: shouldPoll ? 2000 : undefined,
+      refetchOnWindowFocus: false,
+    });
 
   useEffect(() => {
     const anyRunning =
@@ -54,6 +55,7 @@ const usePollMultipleTTSJobs = () => {
     })),
     error,
     refetch,
+    isFetching,
     currentPage: data?.meta.currentPage,
     totalPages: data?.meta.lastPage,
   };

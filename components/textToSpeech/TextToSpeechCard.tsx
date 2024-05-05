@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import VoiceModelSelector from "@/components/form/VoiceModelSelector";
 import FormButton from "../form/FormButton";
 import {
@@ -18,6 +18,8 @@ type TextToSpeechCardProps = TextToSpeechProps & {
   setJob: (result: TextToSpeechApiResponse) => void;
   isLoading: boolean;
   setIsLoading: (value: boolean) => void;
+  resetForm: boolean;
+  setResetForm: (value: boolean) => void;
 };
 type FormData = {
   voiceModelId: string;
@@ -29,14 +31,23 @@ const TextToSpeechCard = ({
   setJob,
   isLoading,
   setIsLoading,
+  resetForm,
+  setResetForm,
 }: TextToSpeechCardProps) => {
   const [error, setError] = useState("");
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       voiceModelId: "",
       text: "",
     },
   });
+
+  useEffect(() => {
+    if (resetForm) {
+      reset();
+      setResetForm(false);
+    }
+  }, [resetForm, reset]);
 
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);

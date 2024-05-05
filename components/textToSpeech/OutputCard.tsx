@@ -9,13 +9,15 @@ import {
 import { TextToSpeechApiResponse } from "@/types/TTS";
 import ConvertingState from "./ConvertingState";
 import ReadyState from "./ReadyState";
-
+import { LoaderIcon } from "lucide-react";
 const OutputCard = ({
   jobs,
   error,
+  isFetching,
 }: {
   jobs?: TextToSpeechApiResponse[] | null;
   error: Error | null;
+  isFetching: boolean;
 }) => {
   return (
     <Card className="w-[350px]">
@@ -26,6 +28,11 @@ const OutputCard = ({
         </CardDescription>
       </CardHeader>
       <CardContent className="p-0">
+        {isFetching && (
+          <div className="flex justify-center items-center h-full w-full">
+            <LoaderIcon className="animate-spin" />
+          </div>
+        )}
         {jobs &&
           jobs.map((jobDetails, index) => (
             <div key={index} className="mt-2 border-t border-gray-300">
