@@ -8,7 +8,7 @@ interface VoiceTextAreaProps {
   rules?: any;
 }
 
-export function VoiceTextArea({ control, name, rules }: VoiceTextAreaProps) {
+const VoiceTextArea = ({ control, name, rules }: VoiceTextAreaProps) => {
   return (
     <Controller
       control={control}
@@ -33,4 +33,6 @@ export function VoiceTextArea({ control, name, rules }: VoiceTextAreaProps) {
       )}
     />
   );
-}
+};
+
+export default VoiceTextArea;

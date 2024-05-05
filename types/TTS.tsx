@@ -23,7 +23,7 @@ export type TextToSpeechApiResponse = {
   status: "running" | "success" | "error" | "cancelled";
   type: "tts";
   voiceModelId: number;
-  progress: number | null | undefined;
+  progress: number;
 };
 
 export interface TextToSpeechProps {
@@ -31,17 +31,19 @@ export interface TextToSpeechProps {
   serverJobs?: TextToSpeechApiResponse[];
 }
 
-export interface TextToSpeechJobDetails {
-  createdAt: string;
-  id: number;
-  jobEndTime: string | null;
-  jobStartTime: string | null;
-  lossyOutputFileUrl: string | null;
-  model: VoiceModel;
-  outputFileUrl: string;
-  recombinedAudioFileUrl: string | null;
-  status: "running" | "success" | "error" | "cancelled";
-  type: "tts";
-  voiceModelId: number;
-  progress: number;
-}
+type PaginationInfo = {
+  currentPage: number;
+  firstPage: number;
+  firstPageUrl: string;
+  lastPage: number;
+  lastPageUrl: string;
+  nextPageUrl: string | null;
+  perPage: number;
+  previousPageUrl: string | null;
+  total: number;
+};
+
+export type CompleteTextToSpeechApiResponse = {
+  data: Response[];
+  meta: PaginationInfo;
+};

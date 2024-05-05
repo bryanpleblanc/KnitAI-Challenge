@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TextToSpeechJobDetails } from "@/types/TTS";
+import { TextToSpeechApiResponse as Response } from "@/types/TTS";
 import { useQuery } from "@tanstack/react-query";
 import { getTTSJobs } from "@/client-api/textToSpeechApi";
 
@@ -16,7 +16,7 @@ type PaginationInfo = {
 };
 
 type TextToSpeechApiResponse = {
-  data: TextToSpeechJobDetails[];
+  data: Response[];
   meta: PaginationInfo;
 };
 

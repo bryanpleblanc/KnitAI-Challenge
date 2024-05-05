@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import VoiceModelSelector from "@/components/form/VoiceModelSelector";
 import FormButton from "../form/FormButton";
 import {
@@ -9,8 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { VoiceTextArea } from "../form/VoiceTextArea";
-import { useForm, Controller } from "react-hook-form";
+import VoiceTextArea from "../form/VoiceTextArea";
+import { useForm } from "react-hook-form";
 import { handleTextToSpeechConversion } from "@/client-api/textToSpeechApi";
 import { TextToSpeechApiResponse, TextToSpeechProps } from "@/types/TTS";
 

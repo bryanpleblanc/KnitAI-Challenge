@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TextToSpeechJobDetails } from "@/types/TTS";
+import { TextToSpeechApiResponse } from "@/types/TTS";
 import { getTTSJobs } from "@/client-api/textToSpeechApi";
 
 const usePollTTSJob = (
@@ -7,7 +7,7 @@ const usePollTTSJob = (
   maxAttempts = 15,
   interval = 2000
 ) => {
-  const [jobDetails, setJobDetails] = useState<TextToSpeechJobDetails | null>(
+  const [jobDetails, setJobDetails] = useState<TextToSpeechApiResponse | null>(
     null
   );
   const [progress, setProgress] = useState(0);
@@ -17,7 +17,6 @@ const usePollTTSJob = (
     if (!jobId) return;
 
     let attempts = 0;
-    const totalDuration = maxAttempts * interval; // Total duration job is expected to take
     const intervalId = setInterval(async () => {
       if (attempts >= maxAttempts) {
         console.log("Maximum attempts reached without completion.");
@@ -27,8 +26,7 @@ const usePollTTSJob = (
       }
 
       try {
-        const result = await getTTSJobs(jobId);
-        console.log("Job Result:", result);
+        const result = await getTTSJobs();
         setJobDetails({
           ...result,
           progress: Math.min(90, (attempts / maxAttempts) * 100),
