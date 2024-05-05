@@ -1,3 +1,13 @@
+# Running Locally?
+
+Create a .env.local file and set the following:
+
+```bash
+KITAI_API_KEY='Insert API KEY Here'
+KITAPI_ROUTE='https://arpeggi.io/api'
+API_URL='http://localhost:3000/api'
+```
+
 # Frontend coding challenge
 
 You're en engineer working on an AI Text-to-speech app. Your task is to use the Kits AI public API to build the Text-to-speech page.
