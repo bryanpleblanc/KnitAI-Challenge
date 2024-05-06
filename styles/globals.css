@@ -72,8 +72,8 @@
       overflow: hidden;
       width: 250px;
       -webkit-appearance: none;
-      background-color: white;
-      border: solid 1px black;
+      background-color: lightgray;
+      /* border: solid 1px black; */
       border-radius: 8px;
     }
     
@@ -91,7 +91,7 @@
       background: white;
       border: solid 1px black;
       border-radius: 100%;
-      box-shadow: -250px 0 0 248px black;
+      box-shadow: -250px 0 0 244px black;
     }
     input[type="range"]::-moz-range-progress {
       background-color: black; 
