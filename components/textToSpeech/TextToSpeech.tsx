@@ -4,9 +4,10 @@ import OutputCard from "./OutputCard";
 import { TextToSpeechApiResponse, TextToSpeechProps } from "@/types/TTS";
 import usePollMultipleTTSJobs from "@/hooks/usePollMultipleTTSJobs";
 
-const TextToSpeech = ({ models }: TextToSpeechProps) => {
+const TextToSpeech = ({ models, initialJobs }: TextToSpeechProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { jobs, refetch, error, isFetching } = usePollMultipleTTSJobs();
+  const { jobs, refetch, error, isFetching } =
+    usePollMultipleTTSJobs(initialJobs);
   const [job, setJob] = useState<TextToSpeechApiResponse | null>(null);
   const [resetForm, setResetForm] = useState(false);
 
@@ -58,11 +59,7 @@ const TextToSpeech = ({ models }: TextToSpeechProps) => {
           resetForm={resetForm}
           setResetForm={setResetForm}
         />
-        <OutputCard
-          jobs={jobs}
-          error={error}
-          isFetching={isFetching && !isLoading}
-        />
+        <OutputCard jobs={jobs} error={error} />
       </div>
     </div>
   );

@@ -28,7 +28,7 @@ export type TextToSpeechApiResponse = {
 
 export interface TextToSpeechProps {
   models: VoiceModel[];
-  serverJobs?: TextToSpeechApiResponse[];
+  initialJobs?: CompleteTextToSpeechApiResponse | undefined;
 }
 
 export type PaginationInfo = {
@@ -44,6 +44,6 @@ export type PaginationInfo = {
 };
 
 export type CompleteTextToSpeechApiResponse = {
-  data: Response[];
-  meta: PaginationInfo;
+  data: TextToSpeechApiResponse[];
+  meta?: PaginationInfo | null;
 };

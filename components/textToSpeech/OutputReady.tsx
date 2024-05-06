@@ -13,63 +13,74 @@ const OutputReady = ({
 }) => {
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const audioRef = useRef(new Audio(audioUrl));
+  const [clientAudioUrl, setClientAudioUrl] = useState("");
+  const audioRef = useRef<HTMLAudioElement | undefined>(
+    typeof Audio !== "undefined" ? new Audio(audioUrl) : undefined
+  );
   const intervalRef = useRef<number>(0);
 
   useEffect(() => {
-    const newAudio = new Audio(audioUrl);
-    audioRef.current = newAudio;
+    if (typeof window !== "undefined") {
+      const newAudio = new Audio(audioUrl);
+      // Set client-side URL after hydration
+      setClientAudioUrl(audioUrl);
+      audioRef.current = newAudio;
 
-    const startProgress = () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      intervalRef.current = window.setInterval(() => {
-        if (newAudio.duration) {
-          setProgress((newAudio.currentTime / newAudio.duration) * 100);
-        }
-      }, 1000);
-    };
+      const startProgress = () => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+        intervalRef.current = window.setInterval(() => {
+          if (newAudio.duration) {
+            setProgress((newAudio.currentTime / newAudio.duration) * 100);
+          }
+        }, 1000);
+      };
 
-    newAudio.addEventListener("play", startProgress);
-    newAudio.addEventListener("pause", () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    });
-    newAudio.addEventListener("ended", () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      setPlaying(false);
-      setProgress(0);
-    });
-
-    return () => {
-      newAudio.removeEventListener("play", startProgress);
-      newAudio.removeEventListener("pause", () => {
+      newAudio.addEventListener("play", startProgress);
+      newAudio.addEventListener("pause", () => {
         if (intervalRef.current) clearInterval(intervalRef.current);
       });
-      newAudio.removeEventListener("ended", () => {
+      newAudio.addEventListener("ended", () => {
         if (intervalRef.current) clearInterval(intervalRef.current);
         setPlaying(false);
         setProgress(0);
       });
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      newAudio.pause();
-    };
+
+      return () => {
+        newAudio.removeEventListener("play", startProgress);
+        newAudio.removeEventListener("pause", () => {
+          if (intervalRef.current) clearInterval(intervalRef.current);
+        });
+        newAudio.removeEventListener("ended", () => {
+          if (intervalRef.current) clearInterval(intervalRef.current);
+          setPlaying(false);
+          setProgress(0);
+        });
+        if (intervalRef.current) clearInterval(intervalRef.current);
+        newAudio.pause();
+      };
+    }
   }, [audioUrl]);
 
   const togglePlay = () => {
     const audio = audioRef.current;
-    if (audio.paused) {
-      audio.play();
-      setPlaying(true);
-    } else {
-      audio.pause();
-      setPlaying(false);
+    if (audio) {
+      if (audio.paused) {
+        audio.play();
+        setPlaying(true);
+      } else {
+        audio.pause();
+        setPlaying(false);
+      }
     }
   };
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const audio = audioRef.current;
-    const seekTime = (audio.duration / 100) * Number(e.target.value);
-    audio.currentTime = seekTime;
-    setProgress(Number(e.target.value));
+    if (audio) {
+      const seekTime = (audio.duration / 100) * Number(e.target.value);
+      audio.currentTime = seekTime;
+      setProgress(Number(e.target.value));
+    }
   };
   return (
     <>
@@ -95,18 +106,20 @@ const OutputReady = ({
           style={{ width: "250px" }}
           className="slider"
         />
-        <a
-          href={audioUrl}
-          download
-          className="flex items-center justify-center"
-        >
-          <div className="flex items-center justify-center border-2 rounded-sm h-6 w-6 p-1">
-            <FileDownload
-              style={{ fontSize: "14px" }}
-              className="text-gray-500"
-            />
-          </div>
-        </a>
+        {clientAudioUrl && (
+          <a
+            href={audioUrl}
+            download
+            className="flex items-center justify-center"
+          >
+            <div className="flex items-center justify-center border-2 rounded-sm h-6 w-6 p-1">
+              <FileDownload
+                style={{ fontSize: "14px" }}
+                className="text-gray-500"
+              />
+            </div>
+          </a>
+        )}
       </div>
     </>
   );

@@ -1,24 +1,19 @@
 import { useState, useEffect } from "react";
-import {
-  TextToSpeechApiResponse as Response,
-  PaginationInfo,
-} from "@/types/TTS";
+import { CompleteTextToSpeechApiResponse } from "@/types/TTS";
 import { useQuery } from "@tanstack/react-query";
 import { getTTSJobs } from "@/client-api/textToSpeechApi";
 
-type TextToSpeechApiResponse = {
-  data: Response[];
-  meta: PaginationInfo;
-};
-
-const usePollMultipleTTSJobs = () => {
+const usePollMultipleTTSJobs = (
+  initialJobs: CompleteTextToSpeechApiResponse | undefined
+) => {
   const [shouldPoll, setShouldPoll] = useState(true);
   const [refetchCount, setRefetchCount] = useState(0);
 
   const { data, error, refetch, isFetching } =
-    useQuery<TextToSpeechApiResponse>({
+    useQuery<CompleteTextToSpeechApiResponse>({
       queryKey: ["ttsJobs"],
       queryFn: getTTSJobs,
+      initialData: initialJobs,
       enabled: shouldPoll,
       refetchInterval: shouldPoll ? 2000 : undefined,
       refetchOnWindowFocus: false,
@@ -47,8 +42,6 @@ const usePollMultipleTTSJobs = () => {
     error,
     refetch,
     isFetching,
-    currentPage: data?.meta.currentPage,
-    totalPages: data?.meta.lastPage,
   };
 };
 
