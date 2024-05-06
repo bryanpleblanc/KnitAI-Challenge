@@ -12,16 +12,19 @@ const TextToSpeech = ({ models }: TextToSpeechProps) => {
 
   // Resetting state after tts-job is complete
   useEffect(() => {
-    if (
-      job &&
-      jobs[0] &&
-      jobs[0].id === job.id &&
-      jobs[0].status !== "running"
-    ) {
-      setIsLoading(false);
-      setJob(null);
-      setResetForm(true);
-    }
+    const resetState = () => {
+      if (
+        job &&
+        jobs[0] &&
+        jobs[0].id === job.id &&
+        jobs[0].status !== "running"
+      ) {
+        setIsLoading(false);
+        setJob(null);
+        setResetForm(true);
+      }
+    };
+    resetState();
   }, [jobs]);
 
   // Once tts-job is sent, start polling

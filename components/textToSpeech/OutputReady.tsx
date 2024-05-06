@@ -78,9 +78,13 @@ const OutputReady = ({
       <div className="flex items-center justify-between w-full p-2 rounded-lg">
         <button
           onClick={() => togglePlay()}
-          className="flex items-center justify-center"
+          className="flex items-center justify-center border-2 rounded-sm h-6 w-6 p-1"
         >
-          {playing ? <Pause /> : <PlayArrow className="text-gray-500" />}
+          {playing ? (
+            <Pause style={{ fontSize: "14px" }} className="text-gray-500" />
+          ) : (
+            <PlayArrow style={{ fontSize: "14px" }} className="text-gray-500" />
+          )}
         </button>
         <input
           type="range"
@@ -88,7 +92,7 @@ const OutputReady = ({
           max="100"
           value={progress}
           onChange={handleSliderChange}
-          style={{ width: "250px", color: "black", background: "black" }}
+          style={{ width: "250px" }}
           className="slider"
         />
         <a
@@ -96,7 +100,12 @@ const OutputReady = ({
           download
           className="flex items-center justify-center"
         >
-          <FileDownload className="text-gray-500" />
+          <div className="flex items-center justify-center border-2 rounded-sm h-6 w-6 p-1">
+            <FileDownload
+              style={{ fontSize: "14px" }}
+              className="text-gray-500"
+            />
+          </div>
         </a>
       </div>
     </>

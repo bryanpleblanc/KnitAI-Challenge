@@ -67,43 +67,46 @@
       --ring: 212.7 26.8% 83.9%;
     }
 
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none; 
-      appearance: none;
-      margin-top: -4px;
-      width: 20px;
-      height: 20px;
-      background-color: white;  
-      border: 2px solid black;
-      cursor: pointer;
-      border-radius: 50%;
-    }
-    input[type="range"]::-webkit-slider-runnable-track {
 
-      width: 100%;
-      height: 8px;
-      background: black;
+    input[type='range'] {
+      overflow: hidden;
+      width: 250px;
+      -webkit-appearance: none;
+      background-color: white;
+      border: solid 1px black;
+      border-radius: 8px;
+    }
+    
+    input[type='range']::-webkit-slider-runnable-track {
+      height: 10px;
+      -webkit-appearance: none;
+      color: black;
+    }
+    
+    input[type='range']::-webkit-slider-thumb {
+      width: 10px;
+      -webkit-appearance: none;
+      height: 10px;
       cursor: pointer;
-      border-radius: 4px;
+      background: white;
+      border: solid 1px black;
+      border-radius: 100%;
+      box-shadow: -250px 0 0 248px black;
     }
-    input[type="range"]::-moz-range-thumb {
-      width: 20px;
-      height: 20px;
-      background: white;  /* Background color of the thumb */
-      border: 2px solid black;
-      cursor: pointer;
-      border-radius: 50%;
+    input[type="range"]::-moz-range-progress {
+      background-color: black; 
     }
-    input[type="range"]::-moz-range-track {
-      width: 100%;
-      height: 8px;
-      background: #ddd;
-      border-radius: 4px;
+    input[type="range"]::-moz-range-track {  
+      background-color:white;
     }
-
-    input[type="range"]:focus {
-      outline: none;  /* Removes the default focus outline */
+    /* IE*/
+    input[type="range"]::-ms-fill-lower {
+      background-color: black; 
     }
+    input[type="range"]::-ms-fill-upper {  
+      background-color: white;
+    }
+    
   }
 
   @layer base {
