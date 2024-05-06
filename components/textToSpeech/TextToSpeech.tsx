@@ -6,8 +6,7 @@ import usePollMultipleTTSJobs from "@/hooks/usePollMultipleTTSJobs";
 
 const TextToSpeech = ({ models, initialJobs }: TextToSpeechProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { jobs, refetch, error, isFetching } =
-    usePollMultipleTTSJobs(initialJobs);
+  const { jobs, refetch, error } = usePollMultipleTTSJobs(initialJobs);
   const [job, setJob] = useState<TextToSpeechApiResponse | null>(null);
   const [resetForm, setResetForm] = useState(false);
 
