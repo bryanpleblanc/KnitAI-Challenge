@@ -31,7 +31,7 @@ export interface TextToSpeechProps {
   serverJobs?: TextToSpeechApiResponse[];
 }
 
-type PaginationInfo = {
+export type PaginationInfo = {
   currentPage: number;
   firstPage: number;
   firstPageUrl: string;

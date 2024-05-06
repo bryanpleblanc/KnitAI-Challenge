@@ -1,6 +1,7 @@
 import React from "react";
 import OutputItemTitle from "./OutputItemTitle";
-const ConvertingState = ({
+
+const OutputConverting = ({
   progress,
   genre,
   time,
@@ -24,4 +25,4 @@ const ConvertingState = ({
   );
 };
 
-export default ConvertingState;
+export default OutputConverting;

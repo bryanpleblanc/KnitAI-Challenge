@@ -7,9 +7,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { TextToSpeechApiResponse } from "@/types/TTS";
-import ConvertingState from "./ConvertingState";
-import ReadyState from "./ReadyState";
+import OutputConverting from "./OutputConverting";
+import OutputReady from "./OutputReady";
 import { LoaderIcon } from "lucide-react";
+
 const OutputCard = ({
   jobs,
   error,
@@ -38,14 +39,14 @@ const OutputCard = ({
             <div key={index} className="mt-2 border-t border-gray-300">
               {jobDetails?.status === "running" &&
                 jobDetails?.progress !== undefined && (
-                  <ConvertingState
+                  <OutputConverting
                     progress={jobDetails.progress}
                     genre={jobDetails.model?.title}
                     time={jobDetails.createdAt}
                   />
                 )}
               {jobDetails?.status === "success" && (
-                <ReadyState
+                <OutputReady
                   audioUrl={jobDetails.outputFileUrl}
                   genre={jobDetails.model?.title}
                   time={jobDetails.createdAt}

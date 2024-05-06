@@ -1,19 +1,10 @@
 import { useState, useEffect } from "react";
-import { TextToSpeechApiResponse as Response } from "@/types/TTS";
+import {
+  TextToSpeechApiResponse as Response,
+  PaginationInfo,
+} from "@/types/TTS";
 import { useQuery } from "@tanstack/react-query";
 import { getTTSJobs } from "@/client-api/textToSpeechApi";
-
-type PaginationInfo = {
-  currentPage: number;
-  firstPage: number;
-  firstPageUrl: string;
-  lastPage: number;
-  lastPageUrl: string;
-  nextPageUrl: string | null;
-  perPage: number;
-  previousPageUrl: string | null;
-  total: number;
-};
 
 type TextToSpeechApiResponse = {
   data: Response[];
