@@ -92,7 +92,7 @@ const TextToSpeechCard = ({
           </div>
         </CardContent>
         <CardFooter className="flex justify-end">
-          <FormButton isLoading={isLoading} />
+          <FormButton isLoading={isLoading} label={"Convert"} />
         </CardFooter>
         {error && <p className="text-red-500 text-xs">{error}</p>}
       </form>

@@ -10,7 +10,7 @@ const TextToSpeech = ({ models }: TextToSpeechProps) => {
   const [job, setJob] = useState<TextToSpeechApiResponse | null>(null);
   const [resetForm, setResetForm] = useState(false);
 
-  // Setting state after TTS is complete
+  // Resetting state after tts-job is complete
   useEffect(() => {
     if (
       job &&
@@ -24,7 +24,7 @@ const TextToSpeech = ({ models }: TextToSpeechProps) => {
     }
   }, [jobs]);
 
-  // Once job is sent, start polling
+  // Once tts-job is sent, start polling
   useEffect(() => {
     const fetchJobs = () => {
       if (job) {

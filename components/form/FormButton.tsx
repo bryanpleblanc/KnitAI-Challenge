@@ -1,7 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { LoaderIcon } from "lucide-react";
 
-const FormButton = ({ isLoading }: { isLoading: boolean }) => {
+const FormButton = ({
+  isLoading,
+  label,
+}: {
+  isLoading: boolean;
+  label: string;
+}) => {
   return (
     <Button type="submit" disabled={isLoading}>
       {isLoading ? (
@@ -9,7 +15,7 @@ const FormButton = ({ isLoading }: { isLoading: boolean }) => {
           <LoaderIcon className="animate-spin" />
         </div>
       ) : (
-        "Convert"
+        <span>{label}</span>
       )}
     </Button>
   );
